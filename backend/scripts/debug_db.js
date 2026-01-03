@@ -1,0 +1,1 @@
+const mongoose = require('mongoose'); const Company = require('../src/models/Company'); const User = require('../src/models/User'); require('dotenv').config(); mongoose.connect(process.env.MONGO_URI).then(async () => { console.log('Companies:', await Company.find({}, 'name')); console.log('Users:', await User.find({}, 'email loginId')); process.exit(); });

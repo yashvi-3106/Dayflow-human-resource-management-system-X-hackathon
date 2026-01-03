@@ -1,0 +1,1 @@
+const mongoose = require('mongoose'); const User = require('../src/models/User'); require('dotenv').config(); mongoose.connect(process.env.MONGO_URI).then(async () => { await User.deleteOne({ email: 'admin1@mahir.com' }); console.log('Deleted orphaned user'); process.exit(); });

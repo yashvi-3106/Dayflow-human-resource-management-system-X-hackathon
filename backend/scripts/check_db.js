@@ -1,0 +1,1 @@
+const mongoose = require('mongoose'); const Company = require('../src/models/Company'); require('dotenv').config(); mongoose.connect(process.env.MONGO_URI).then(async () => { console.log('Companies:', await Company.find({})); process.exit(); });

@@ -1,0 +1,60 @@
+[dotenv@17.2.3] injecting env (4) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+Connected to MongoDB
+Server running on port 5001
+[0mPOST /api/auth/login [32m200[0m 63.891 ms - 303[0m
+[0mGET /api/departments [32m200[0m 3.411 ms - 3970[0m
+
+==================================================
+📧 SENDING WELCOME EMAIL TO: doc.1767421376409@test.com
+--------------------------------------------------
+Subject: Welcome to Dayflow HRMS!
+Hello,
+Your account has been created.
+Login ID: DIDO2026038
+Temporary Password: 08cb16e64d
+
+Please click here to verify your email first:
+http://localhost:5001/api/auth/verify-email?token=341e37a75f138434360a21e6c2a0432803f7b746
+
+Then login and change your password immediately.
+==================================================
+
+DEBUG: Sending response with: {
+  loginId: 'DIDO2026038',
+  tempPassword: '08cb16e64d',
+  verifyLink: 'http://localhost:5001/api/auth/verify-email?token=341e37a75f138434360a21e6c2a0432803f7b746'
+}
+[0mPOST /api/employees [32m201[0m 70.200 ms - 540[0m
+[0mPOST /api/auth/login [32m200[0m 52.583 ms - 339[0m
+[0mPOST /api/auth/change-password [32m200[0m 104.133 ms - 58[0m
+[0mPOST /api/auth/login [32m200[0m 53.301 ms - 340[0m
+[0mPOST /api/employees/upload-avatar [32m200[0m 8.017 ms - 99[0m
+[0mGET /api/media/1767421376711-842901071.png [33m404[0m 0.757 ms - 176[0m
+[0mGET /api/departments [32m200[0m 3.645 ms - 3970[0m
+
+==================================================
+📧 SENDING WELCOME EMAIL TO: spy.1767421376409@test.com
+--------------------------------------------------
+Subject: Welcome to Dayflow HRMS!
+Hello,
+Your account has been created.
+Login ID: DISH2026039
+Temporary Password: 893d3ab429
+
+Please click here to verify your email first:
+http://localhost:5001/api/auth/verify-email?token=5660c65b74ecd5047c7ea0f862b7eee5e0556ac4
+
+Then login and change your password immediately.
+==================================================
+
+DEBUG: Sending response with: {
+  loginId: 'DISH2026039',
+  tempPassword: '893d3ab429',
+  verifyLink: 'http://localhost:5001/api/auth/verify-email?token=5660c65b74ecd5047c7ea0f862b7eee5e0556ac4'
+}
+[0mPOST /api/employees [32m201[0m 66.957 ms - 539[0m
+[0mPOST /api/auth/login [32m200[0m 64.807 ms - 339[0m
+[0mPOST /api/auth/change-password [32m200[0m 119.279 ms - 58[0m
+[0mPOST /api/auth/login [32m200[0m 51.791 ms - 340[0m
+[0mGET /api/media/1767421376711-842901071.png [33m404[0m 0.200 ms - 176[0m
+[0mGET /api/media/1767421376711-842901071.png [33m404[0m 0.063 ms - 176[0m
