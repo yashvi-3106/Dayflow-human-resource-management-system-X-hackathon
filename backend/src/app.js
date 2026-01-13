@@ -62,7 +62,7 @@ app.use(cors(corsOptions));
 
 
 // Handle preflight for all routes
-app.options('(.*)', (req, res) => {
+app.options(/.*/, (req, res) => {
   res.header('Access-Control-Allow-Origin', req.headers.origin);
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
@@ -75,7 +75,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Handle preflight for all API routes
-app.all('/api/(.*)', (req, res, next) => {
+app.all(/^\/api\/.*/, (req, res, next) => {
   if (req.method === 'OPTIONS') {
     res.header('Access-Control-Allow-Origin', req.headers.origin);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
