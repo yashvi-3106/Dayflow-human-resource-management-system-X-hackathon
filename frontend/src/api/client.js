@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-   baseURL: import.meta.env.VITE_API_URL ,// Matches Backend Port
-    // headers: { 'Content-Type': 'application/json' }, // REMOVED to allow FormData/Multipart
+    baseURL: import.meta.env.VITE_API_URL,
+    withCredentials: true,  // Important for sending cookies
 });
 
 // Request Interceptor: Attach Token
@@ -21,10 +21,7 @@ api.interceptors.response.use(
         if (error.response && error.response.status === 401) {
             localStorage.removeItem('token');
             localStorage.removeItem('user');
-            // Check if we are already on login page to avoid loop
-            if (window.location.pathname !== '/login') {
-                window.location.href = '/login';
-            }
+            window.location.href = '/login';
         }
         return Promise.reject(error);
     }

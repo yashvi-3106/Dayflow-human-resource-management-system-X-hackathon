@@ -26,15 +26,35 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Middlewares
 app.use(helmet());
-// Replace the current CORS middleware with this:
+
+// CORS Configuration
+const allowedOrigins = [
+  'https://dayflow-hrms-odoo.netlify.app',
+  'https://dayflow-hrms.vercel.app',
+  'http://localhost:3000'
+];
+
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://dayflow-hrms-odoo.netlify.app', 'https://dayflow-hrms.vercel.app'] 
-    : 'http://localhost:3000',
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.includes(origin) || 
+        process.env.NODE_ENV !== 'production') {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   optionsSuccessStatus: 200
 };
+
+// Apply CORS to all routes
 app.use(cors(corsOptions));
+// Handle preflight requests
+app.options('*', cors(corsOptions));
+
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -58,8 +78,14 @@ app.get('/', (req, res) => {
     res.send('Dayflow HRMS Backend Running');
 });
 
-// Error Handling Middleware
-const { errorHandler } = require('./middlewares/errorMiddleware');
-app.use(errorHandler);
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ 
+    success: false,
+    message: 'Something went wrong!',
+    error: process.env.NODE_ENV === 'development' ? err.message : undefined
+  });
+});
 
 module.exports = app;
