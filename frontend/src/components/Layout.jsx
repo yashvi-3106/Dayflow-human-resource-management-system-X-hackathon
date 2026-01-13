@@ -71,7 +71,7 @@ const Layout = () => {
                     <div className="flex items-center space-x-3">
                         {user?.company?.logo ? (
                             <img
-                                src={`${(import.meta.env.VITE_API_URL || 'http://localhost:5001/api').replace('/api', '')}${user.company.logo}`}
+                                src={`${(import.meta.env.VITE_API_URL || 'http://localhost:5001').replace(/\/api$/, '')}${user.company.logo}`}
                                 alt="Logo"
                                 className="w-10 h-10 rounded-lg object-contain bg-white"
                             />

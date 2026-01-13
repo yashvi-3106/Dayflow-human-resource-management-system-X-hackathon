@@ -26,7 +26,15 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Middlewares
 app.use(helmet());
-app.use(cors());
+// Replace the current CORS middleware with this:
+const corsOptions = {
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['https://dayflow-hrms-odoo.netlify.app', 'https://dayflow-hrms.vercel.app'] 
+    : 'http://localhost:3000',
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

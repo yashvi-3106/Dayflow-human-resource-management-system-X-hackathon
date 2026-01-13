@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:5001/api', // Matches Backend Port
+   baseURL: import.meta.env.VITE_API_URL ,// Matches Backend Port
     // headers: { 'Content-Type': 'application/json' }, // REMOVED to allow FormData/Multipart
 });
 
