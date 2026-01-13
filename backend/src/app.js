@@ -34,8 +34,15 @@ const allowedOrigins = [
   'http://localhost:3000'
 ];
 
+// Replace the CORS configuration with this:
 const corsOptions = {
   origin: function (origin, callback) {
+    const allowedOrigins = [
+      'https://dayflow-hrms-odoo.netlify.app',
+      'https://dayflow-hrms.vercel.app',
+      'http://localhost:3000'
+    ];
+    
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     
@@ -52,12 +59,32 @@ const corsOptions = {
 
 // Apply CORS to all routes
 app.use(cors(corsOptions));
-// Handle preflight requests
-app.options('*', cors(corsOptions));
+
+
+// Handle preflight for all routes
+app.options('*', (req, res) => {
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+  res.header('Access-Control-Allow-Credentials', true);
+  res.sendStatus(200);
+});
 
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Handle preflight for all API routes
+app.all('/api/*', (req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Origin', req.headers.origin);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    res.header('Access-Control-Allow-Credentials', true);
+    return res.sendStatus(200);
+  }
+  next();
+});
 
 // Routes
 app.use('/api/auth', authRoutes);
