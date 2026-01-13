@@ -42,12 +42,12 @@ const corsOptions = {
       'https://dayflow-hrms.vercel.app',
       'http://localhost:3000'
     ];
-    
+
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.includes(origin) || 
-        process.env.NODE_ENV !== 'production') {
+
+    if (allowedOrigins.includes(origin) ||
+      process.env.NODE_ENV !== 'production') {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
@@ -62,7 +62,7 @@ app.use(cors(corsOptions));
 
 
 // Handle preflight for all routes
-app.options('*', (req, res) => {
+app.options('(.*)', (req, res) => {
   res.header('Access-Control-Allow-Origin', req.headers.origin);
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
@@ -75,7 +75,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Handle preflight for all API routes
-app.all('/api/*', (req, res, next) => {
+app.all('/api/(.*)', (req, res, next) => {
   if (req.method === 'OPTIONS') {
     res.header('Access-Control-Allow-Origin', req.headers.origin);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
@@ -102,13 +102,13 @@ app.use('/api/admin/audit-logs', auditLogRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 
 app.get('/', (req, res) => {
-    res.send('Dayflow HRMS Backend Running');
+  res.send('Dayflow HRMS Backend Running');
 });
 
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({ 
+  res.status(500).json({
     success: false,
     message: 'Something went wrong!',
     error: process.env.NODE_ENV === 'development' ? err.message : undefined
