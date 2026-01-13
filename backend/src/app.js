@@ -30,7 +30,7 @@ app.use(helmet());
 // CORS Configuration
 const allowedOrigins = [
   'https://dayflow-hrms-odoo.netlify.app',
-  'https://dayflow-hrms.vercel.app',
+  'https://dayflow-human-resource-management-s-xi.vercel.app/',
   'http://localhost:3000'
 ];
 
@@ -39,7 +39,7 @@ const corsOptions = {
   origin: function (origin, callback) {
     const allowedOrigins = [
       'https://dayflow-hrms-odoo.netlify.app',
-      'https://dayflow-hrms.vercel.app',
+      'https://dayflow-human-resource-management-s-xi.vercel.app/',
       'http://localhost:3000'
     ];
 
