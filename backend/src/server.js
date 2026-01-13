@@ -10,9 +10,13 @@ mongoose
     .connect(MONGO_URI)
     .then(() => {
         console.log('Connected to MongoDB');
-        app.listen(PORT, () => {
+        // Only start the server after successful DB connection
+        const server = app.listen(PORT, () => {
             console.log(`Server running on port ${PORT}`);
         });
+        
+        // Export the server for Vercel
+        module.exports = server;
     })
     .catch((err) => {
         console.error('MongoDB connection error:', err);
