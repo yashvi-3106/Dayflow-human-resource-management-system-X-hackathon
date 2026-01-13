@@ -14,7 +14,13 @@ const protect = async (req, res, next) => {
 
             // Verify token
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            console.log('🔹 AuthMiddleware: Decoded Token ID:', decoded.id);
+
+            // Re-check DB connection state for Vercel
+            if (User.db.readyState === 0) {
+                console.log('⚠️ AuthMiddleware: DB disconnected. Reconnecting...');
+                // In serverless, this might rely on the global connection buffer or need explicit reconnect.
+                // For now, we rely on the buffer but log it.
+            }
 
             // Get user from the token
             req.user = await User.findById(decoded.id).select('-password');

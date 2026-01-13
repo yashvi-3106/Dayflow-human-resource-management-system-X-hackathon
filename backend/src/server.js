@@ -24,8 +24,11 @@ if (require.main === module) {
         });
     });
 } else {
-    // For Vercel: Connect to DB but don't block export
-    connectDB();
+    // For Vercel: Connect to DB using cached connection pattern
+    // This prevents creating a new connection on every function invocation (cold start optimization)
+    if (mongoose.connection.readyState === 0) {
+        connectDB().catch(err => console.error('Initial DB Connection Fail:', err));
+    }
 }
 
 // Export the app for Vercel

@@ -37,21 +37,8 @@ const allowedOrigins = [
 // Replace the CORS configuration with this:
 const corsOptions = {
   origin: function (origin, callback) {
-    const allowedOrigins = [
-      'https://dayflow-final.netlify.app',
-      'https://dayflow-human-resource-management-s-xi.vercel.app/',
-      'http://localhost:3000'
-    ];
-
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-
-    if (allowedOrigins.includes(origin) ||
-      process.env.NODE_ENV !== 'production') {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
+    // Permissive CORS for Hackathon - Allow all origins
+    callback(null, true);
   },
   credentials: true,
   optionsSuccessStatus: 200
