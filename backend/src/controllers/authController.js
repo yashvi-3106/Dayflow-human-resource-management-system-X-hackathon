@@ -175,7 +175,7 @@ const registerCompany = async (req, res) => {
             name: companyName,
             address: 'Headquarters', // Default
             website: '',
-            logo: req.file ? `/uploads/logos/${req.file.filename}` : null
+            logo: (req.file && req.file.filename) ? `/uploads/logos/${req.file.filename}` : null
         });
 
         // 3. Create Default Departments

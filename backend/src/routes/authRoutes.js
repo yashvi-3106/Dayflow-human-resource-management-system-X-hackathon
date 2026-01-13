@@ -7,14 +7,7 @@ const { protect } = require('../middlewares/authMiddleware');
 const router = express.Router();
 
 // Multer Config
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/logos/'); // Ensure this directory exists
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname.replace(/\s+/g, '-')}`);
-    }
-});
+const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 router.post('/register', upload.single('logo'), registerCompany);

@@ -29,7 +29,7 @@ app.use(helmet());
 
 // CORS Configuration
 const allowedOrigins = [
-  'https://dayflow-final.netlify.app/',
+  'https://dayflow-final.netlify.app',
   'https://dayflow-human-resource-management-s-xi.vercel.app/',
   'http://localhost:3000'
 ];
@@ -38,7 +38,7 @@ const allowedOrigins = [
 const corsOptions = {
   origin: function (origin, callback) {
     const allowedOrigins = [
-      'https://dayflow-final.netlify.app/',
+      'https://dayflow-final.netlify.app',
       'https://dayflow-human-resource-management-s-xi.vercel.app/',
       'http://localhost:3000'
     ];
